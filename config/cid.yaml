@@ -1,0 +1,162 @@
+%YAML:1.0
+path_dataset: /home/zyd/File/CID-SIMS/office_building/office/office_1/
+#path_dataset: /home/zyd/File/CID-SIMS/office_building/floor14/floor14_1/
+#path_dataset: /home/zyd/File/CID-SIMS/office_building/two_floors/14-13-14/
+#path_dataset: /home/zyd/File/CID-SIMS/office_building/downstairs/14-13-12/
+#path_dataset: /home/zyd/File/CID-SIMS/office_building/floor3/floor3_1/
+#path_dataset: /home/zyd/File/CID-SIMS/office_building/floor13/floor13_2/
+#path_dataset: /home/zyd/File/CID-SIMS/apartment/apartment1/apartment1_2/
+#path_dataset: /home/zyd/File/CID-SIMS/apartment/apartment2/apartment2_2/
+#path_dataset: /home/zyd/File/CID-SIMS/apartment/apartment3/apartment3_3/
+path_results: ../results/
+file_traj: test.txt
+file_time: time.txt
+
+save_traj: 1
+has_gt: 1
+img_start: 0
+img_end: 0
+save_figs: 0
+
+# plane params
+use_plane: 1
+use_corner: 1
+upspeed: 1
+
+# marginalize plane
+track_thres: 5.0
+lost_thres: 200
+obs_thres: 10
+area_thres: 0.5
+
+# update plane
+up_plane_chi2_multipler: 1
+up_min_measurements: 2
+
+# plane detection
+det_angle_thres: 5.0
+det_dis_thres: 0.04
+plane_noise: 0 # 0：depth；1：I
+
+# plane association
+use_tracking_matcher: 1
+angle_thres: 10.0
+dis_thres: 0.05
+overlap_thres: 0.0
+
+
+# merge params (for map)
+do_merge: 1
+merge_overlap_thres: 0.0
+merge_angle_thres: 5.0
+merge_dis_thres: 0.02
+
+# depth params
+has_depth: 1
+depth_near: 10
+depth_far: 5000
+depth_factor: 1000.0
+depth_filter: 1
+
+## ESTIMATOR
+use_fej: 1
+use_imuavg: 1
+use_rk4int: 1
+calib_cam_extrinsics: 1
+calib_cam_intrinsics: 1
+calib_cam_timeoffset: 1
+max_clones: 13 #（<=15)
+max_slam: 75
+max_slam_in_update: 50
+max_msckf_in_update: 999
+dt_slam_delay: 2
+feat_rep_msckf: GLOBAL_3D
+feat_rep_slam: GLOBAL_3D
+
+# point update params
+up_msckf_sigma_px: 1
+up_msckf_chi2_multipler: 1
+up_msckf_use_mad: 0
+up_msckf_with_depth: 1
+up_slam_sigma_px: 1
+up_slam_chi2_multipler: 1
+up_slam_use_mad: 0
+up_slam_with_depth: 1
+
+# zero velocity update params
+use_zupt: 0
+zupt_chi2_multipler: 2
+zupt_max_velocity: 0.3
+zupt_sigma_px: 1
+zupt_noise_multiplier: 50
+
+
+# tracker properties
+num_pts: 250  #
+fast_threshold: 15
+grid_x: 5
+grid_y: 3
+min_px_dist: 10
+multi_threading: 1
+tri_min_dist: 0.20
+tri_max_dist: 200.0
+tri_use_depth: 1
+
+
+# imu initializer thresholds
+# static initializer
+init_window_time: 0.75
+init_imu_thresh: 0.20
+# motion initializer
+use_motion_init: 0
+use_init_optimization: 1
+optimize_init_scale: 1
+min_parallax: 15
+relative_corres: 20
+relative_parallax: 60
+
+
+## SENSOR PARAMS
+# imu noise values / update
+gyroscope_noise_density:  0.00018
+gyroscope_random_walk: 0.00003
+accelerometer_noise_density: 0.00111
+accelerometer_random_walk: 0.00027
+
+
+# STATE
+calib_camimu_dt: 0.0
+gravity: !!opencv-matrix
+  rows: 3
+  cols: 1
+  dt: d
+  data: [0.0, 0.0, 9.81]
+
+# camera intrinsics
+cam_width: 640
+cam_height: 480
+cam_k: !!opencv-matrix
+  rows: 4
+  cols: 1
+  dt: d
+  data: [386.52, 387.32, 326.51, 237.40]
+cam_d: !!opencv-matrix
+  rows: 4
+  cols: 1
+  dt: d
+  data: [-0.046, 0.035, 0.00017, -0.00025]
+
+# camera-imu extrinsics
+T_CtoI: !!opencv-matrix
+  rows: 4
+  cols: 4
+  dt: d
+  data: [
+    0.999969, -0.0071841, 0.00319194, 0.027094,
+    0.00720362, 0.999955, -0.0061454, 0.00443381,
+    -0.00314766, 0.0061682, 0.999976, 0.015893,
+    0, 0, 0, 1]
+
+
+# chisquare check
+chisquare_file: chisquare_check.txt
